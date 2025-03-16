@@ -64,3 +64,4 @@ async def get_recipe_details(
         return schemas.RecipeOut(**dish.__dict__)
     else:
         raise HTTPException(status_code=404, detail="Recipe not found")
+

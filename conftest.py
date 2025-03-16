@@ -4,6 +4,7 @@ from database import engine
 import models as models
 
 
+
 @pytest.fixture
 async def create_table():
     async with engine.begin() as conn:
