@@ -31,5 +31,8 @@ jobs:
       - name: Install linters
         run: pip install black isort
 
+      - name: List files
+        run: ls -la
+
       - name: Lintering code
         run: isort --profile black *.py
