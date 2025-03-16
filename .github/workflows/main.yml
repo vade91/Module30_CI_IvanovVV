@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Inspect files
-      uses: actions/checkout@v1
+      uses: actions/checkout@v3
 
     - name: List files
       run: ls -la
@@ -35,7 +35,7 @@ jobs:
         run: ls -la
 
       - name: Inspect files
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
       - name: Lintering code
         run: isort --profile black *.py
