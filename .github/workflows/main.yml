@@ -1,0 +1,15 @@
+#-------------------
+# Module 30 
+#-------------------
+
+name: My-GitHubActions
+
+on: [pull_request, push]
+
+jobs:
+  my_testing:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Printing something
+      run: echo "Hello github actions!"
