@@ -11,8 +11,6 @@ from httpx import ASGITransport, AsyncClient
 
 client = TestClient(app)
 
-# TODO Если выполнить все тесты вместе получаю ошибку "a transaction
-#  is already begun on this session". Не понял как исправить
 @pytest.mark.asyncio
 async def test_get_all_recipes(create_table):
     """
