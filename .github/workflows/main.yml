@@ -34,5 +34,8 @@ jobs:
       - name: List files
         run: ls -la
 
+      - name: Inspect files
+        uses: actions/checkout@v1
+
       - name: Lintering code
         run: isort --profile black *.py
