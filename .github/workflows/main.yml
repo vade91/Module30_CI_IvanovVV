@@ -12,4 +12,6 @@ jobs:
 
     steps:
     - name: Printing something
-      run: echo "Hello github actions!"
+      run: |
+        echo "Hello github actions!"
+        python3 --version
