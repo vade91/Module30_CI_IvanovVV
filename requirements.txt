@@ -1,8 +1,0 @@
-fastapi
-uvicorn[standard]
-sqlalchemy
-aiosqlite
-greenlet
-httpx
-requests
-pytest-asyncio
