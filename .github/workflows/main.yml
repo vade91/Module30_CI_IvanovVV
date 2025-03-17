@@ -1,5 +1,10 @@
 #-------------------
 # Module 30 
+# TODO: Не знаю насколько правильно, что тестирование перед проверкой линтерами.
+# Я делал с такой логикой, что если код не тестируется, то его нет смысла и проверять дальше.
+# Поэтому если тесты не прошли, то линтеры не запустятся.
+# У линтеров я мог бы на самом деле сделать проверку каждым как отдельная job. Но может есть смысл и в том,
+# что если проверка black не прошла, то другими тоже уже нет смысла смотреть.
 #-------------------
 
 name: My-GitHubActions
@@ -33,17 +38,13 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Lintering with black
-        continue-on-error: true
         run: black --diff --check src_app/
 
       - name: Lintering with isort
-        continue-on-error: true
         run: isort --check-only --diff src_app/ 
 
       - name: Lintering with mypy
-        continue-on-error: true
         run: mypy src_app/ 
 
       - name: Lintering with flake8
-        continue-on-error: true
         run: flake8 src_app/ 
