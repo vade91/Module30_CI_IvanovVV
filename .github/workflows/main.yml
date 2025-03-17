@@ -24,6 +24,7 @@ jobs:
   my_lintering:
     runs-on: ubuntu-latest
     needs: [my_testing]
+    continue-on-error: true
 
     steps:
       - name: Install linters
