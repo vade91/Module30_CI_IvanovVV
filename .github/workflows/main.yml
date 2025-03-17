@@ -27,10 +27,19 @@ jobs:
 
     steps:
       - name: Install linters
-        run: pip install black isort
+        run: pip install black isort flake8 flake8-bugbear flake8-pie mypy
 
       - name: Inspect files
         uses: actions/checkout@v1
 
-      - name: Lintering code
-        run: isort . --profile black
+      - name: Lintering with black
+        run: black --diff --check src_app/
+
+      - name: Lintering with isort
+        run: isort --check-only --diff src_app/ 
+
+      - name: Lintering with mypy
+        run: mypy src_app/ 
+
+      - name: Lintering with flake8
+        run: flake8 src_app/ 
