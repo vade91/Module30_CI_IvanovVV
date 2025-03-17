@@ -27,10 +27,10 @@ jobs:
 
     steps:
       - name: Install linters
-        run: pip install black
+        run: pip install black isort
 
       - name: Inspect files
         uses: actions/checkout@v1
 
       - name: Lintering code
-        run: black .
+        run: isort . --profile black
