@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class BaseRecipe(BaseModel):
     """
     Базовый класс рецепта. Содержит поля:
@@ -8,13 +9,16 @@ class BaseRecipe(BaseModel):
     3. Ингридиенты
     4. Описание готовки
     """
+
     dish_name: str
     cooking_time_m: int
     reagents: str
     description: str
 
+
 class RecipeIn(BaseRecipe):
     ...
+
 
 class RecipeOut(BaseRecipe):
     """
@@ -22,6 +26,7 @@ class RecipeOut(BaseRecipe):
     1. id - первичный ключ таблицы
     2. Кол-во просмотров, начинается с нуля
     """
+
     id: int
     views_cnt: int
 

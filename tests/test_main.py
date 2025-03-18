@@ -1,13 +1,13 @@
-import pytest
 import json
+
+import pytest
+from fastapi.testclient import TestClient
+from httpx import ASGITransport, AsyncClient
 from sqlalchemy.future import select
 
-from fastapi.testclient import TestClient
+from ..src_app.database import session
 from ..src_app.main import app
 from ..src_app.models import Recipe
-from ..src_app.database import session
-
-from httpx import ASGITransport, AsyncClient
 
 client = TestClient(app)
 
@@ -19,7 +19,9 @@ async def test_get_all_recipes(create_table):
     1. Получение статус-кода 200
     2. Структура преобразуема в список
     """
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
         response = await ac.get("/recipes")
 
     assert response.status_code == 200
@@ -31,8 +33,10 @@ async def test_root_404():
     """
     Тест корня сервиса. Должен вернуться 404
     """
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
-        response = await ac.get('/')
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        response = await ac.get("/")
 
     assert response.status_code == 404
 
@@ -44,10 +48,12 @@ async def test_add_recipe(one_recipe):
     1. Возвращается 200
     2. Добавленное имя блюда такое же как в аналогичном ключе фикстуры
     """
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
         response = await ac.post("/recipes", json=one_recipe)
         assert response.status_code == 200
-        assert response.json()['dish_name'] == one_recipe['dish_name']
+        assert response.json()["dish_name"] == one_recipe["dish_name"]
 
 
 @pytest.mark.asyncio
@@ -57,10 +63,10 @@ async def test_get_details():
     1. Возвращается 200
     2. Проверяем, что счетчик просмотров увеличился на 1 после просмотра блюда
     """
-    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as ac:
-        get_cnt = await session.execute(
-            select(Recipe.views_cnt).where(Recipe.id == 1)
-        )
+    async with AsyncClient(
+        transport=ASGITransport(app=app), base_url="http://test"
+    ) as ac:
+        get_cnt = await session.execute(select(Recipe.views_cnt).where(Recipe.id == 1))
         cnt_before = get_cnt.scalar()
         response = await ac.get("/recipes/1")
         assert response.status_code == 200
