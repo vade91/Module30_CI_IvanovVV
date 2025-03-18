@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import FastAPI, Path
+from fastapi import FastAPI
 from fastapi.exceptions import HTTPException
 from sqlalchemy.future import select
 
@@ -35,7 +35,7 @@ async def add_recipe(receipt: RecipeIn) -> Recipe:
 
 
 @app.get("/recipes", response_model=List[RecipeOut], tags=["Recipes"])
-async def get_all_recipes() -> List[Recipe]:
+async def get_all_recipes():
     """
     Асинхронный роут получает список имеющихся рецептов в базе
     """
@@ -51,13 +51,14 @@ async def get_all_recipes() -> List[Recipe]:
 
 @app.get("/recipes/{recipe_id}", response_model=RecipeOut, tags=["Recipes"])
 async def get_recipe_details(
-    recipe_id: int = Path(..., title="Id of the recipe to display", ge=0)
+    recipe_id: int
 ):
     """
     Асинхронный роут получает конкретный рецепт по его id.
     у такого рецепта прибавляется число просмотров (views_cnt)
     """
-    result = await session.execute(select(Recipe).where(Recipe.id == recipe_id))
+    result = await session.execute(select(Recipe
+                                          ).where(Recipe.id == recipe_id))
     dish = result.scalar()
     if dish:
         dish.views_cnt += 1

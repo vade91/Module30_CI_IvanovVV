@@ -16,7 +16,8 @@ class BaseRecipe(BaseModel):
     description: str
 
 
-class RecipeIn(BaseRecipe): ...
+class RecipeIn(BaseRecipe):
+    ...
 
 
 class RecipeOut(BaseRecipe):
